@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VOLTRA — Premium elektromobillar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08090B; --surface:#111318; --surface-2:#181B21; --line:#25282F;
+    --text:#F2F3F1; --muted:#9599A2;
+    --teal:#5EEAD4; --violet:#8B7CF6;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]){ --bg:#08090B; } }
+  *{box-sizing:inherit;margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px);}
+  body{background:var(--bg);color:var(--text);font-family:'Manrope',sans-serif;line-height:1.6;overflow-x:hidden;}
+  h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;}
+  a{color:inherit;} img{max-width:100%;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+  @media (max-width:640px){.wrap{padding:0 20px;}}
+
+  .mesh{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(600px 400px at 15% 10%, rgba(94,234,212,0.10), transparent 60%),
+      radial-gradient(700px 500px at 85% 30%, rgba(139,124,246,0.12), transparent 60%);
+  }
+
+  header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;
+    background:rgba(8,9,11,0.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px;}
+  .logo{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;}
+  .logo span{background:linear-gradient(90deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .navlinks{display:none;gap:34px;font-size:0.92rem;color:var(--muted);}
+  .navlinks a{text-decoration:none;transition:color .2s;}
+  .navlinks a:hover{color:var(--text);}
+  @media (min-width:820px){.navlinks{display:flex;}}
+  .nav-cta{background:var(--text);color:#08090B;padding:10px 20px;border-radius:100px;font-size:0.86rem;font-weight:600;text-decoration:none;}
+
+  .hero{padding:100px 0 60px;}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:8px;}
+  .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:100px;padding:7px 16px;font-size:0.82rem;color:var(--muted);margin-bottom:28px;}
+  .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal);}
+  .hero h1{font-size:clamp(2.6rem,7.5vw,5.4rem);line-height:0.98;font-weight:700;max-width:14ch;}
+  .hero h1 .grad{background:linear-gradient(100deg,var(--teal),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero-sub{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-top:36px;align-items:end;}
+  @media (max-width:760px){.hero-sub{grid-template-columns:1fr;}}
+  .hero p.lead{color:var(--muted);font-size:1.05rem;max-width:48ch;}
+  .hero-actions{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;}
+  .btn-primary{background:var(--text);color:#08090B;padding:15px 28px;border-radius:100px;text-decoration:none;font-weight:600;font-size:0.94rem;}
+  .btn-ghost{border:1px solid var(--line);padding:15px 28px;border-radius:100px;text-decoration:none;font-size:0.94rem;}
+
+  .hero-visual{margin-top:56px;border:1px solid var(--line);border-radius:24px;
+    background:linear-gradient(180deg,var(--surface),var(--surface-2));padding:36px 24px 10px;overflow:hidden;position:relative;}
+  .hero-visual svg{width:100%;height:auto;display:block;}
+  .spec-strip{display:flex;justify-content:space-between;gap:20px;padding:22px 6px;border-top:1px solid var(--line);margin-top:20px;flex-wrap:wrap;}
+  .spec{text-align:center;flex:1;min-width:90px;}
+  .spec b{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;display:block;}
+  .spec span{color:var(--muted);font-size:0.78rem;}
+
+  section{padding:88px 0;border-top:1px solid var(--line);}
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem);font-weight:600;}
+  .section-head p{color:var(--muted);max-width:38ch;font-size:0.96rem;}
+
+  .bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:14px;}
+  @media (max-width:900px){.bento{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:520px){.bento{grid-template-columns:1fr;grid-auto-rows:auto;}}
+  .bento-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;}
+  .bento-card.wide{grid-column:span 2;}
+  @media (max-width:520px){.bento-card.wide{grid-column:span 1;}}
+  .bento-card h3{font-size:1.05rem;font-weight:600;}
+  .bento-card p{color:var(--muted);font-size:0.88rem;margin-top:8px;}
+  .bento-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--teal),var(--violet));opacity:0.9;}
+
+  .model-card{border:1px solid var(--line);border-radius:22px;background:var(--surface);padding:28px 28px 8px;margin-bottom:20px;}
+  .model-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;margin-bottom:6px;}
+  .model-name{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:600;}
+  .model-tag{color:var(--teal);font-size:0.8rem;margin-top:4px;}
+  .model-price{font-size:1.05rem;font-family:'Space Grotesk',sans-serif;}
+  .model-svg{width:100%;height:auto;margin:10px 0 -6px;}
+  .model-specs{display:flex;gap:30px;padding:18px 0;border-top:1px solid var(--line);color:var(--muted);font-size:0.85rem;flex-wrap:wrap;}
+  .model-specs b{color:var(--text);display:block;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;}
+  .model-cta{color:var(--teal);text-decoration:none;font-size:0.86rem;font-weight:600;}
+
+  .quote-section blockquote{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.4rem,3vw,2rem);line-height:1.4;max-width:800px;font-weight:500;}
+  cite{display:block;margin-top:26px;color:var(--muted);font-style:normal;font-size:0.88rem;}
+
+  .cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+  @media (max-width:820px){.cta-grid{grid-template-columns:1fr;gap:36px;}}
+  .cta-grid h2{font-size:clamp(1.9rem,4vw,2.5rem);margin-bottom:18px;font-weight:600;}
+  .cta-grid p{color:var(--muted);max-width:40ch;}
+  form{display:flex;flex-direction:column;gap:14px;}
+  .field{display:flex;flex-direction:column;gap:7px;}
+  label{font-size:0.8rem;color:var(--muted);}
+  input,select{background:var(--surface-2);border:1px solid var(--line);color:var(--text);padding:14px 16px;border-radius:12px;font-family:'Manrope',sans-serif;font-size:0.94rem;}
+  input:focus,select:focus{outline:2px solid var(--teal);outline-offset:1px;}
+  .submit-btn{background:linear-gradient(100deg,var(--teal),var(--violet));color:#08090B;border:none;padding:15px 28px;border-radius:100px;font-weight:700;font-size:0.94rem;cursor:pointer;margin-top:4px;}
+  .form-note{font-size:0.8rem;color:var(--muted);}
+  .form-success{display:none;color:var(--teal);font-size:0.9rem;margin-top:4px;}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;}
+  .footer-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;color:var(--muted);font-size:0.84rem;}
+
+  @keyframes rise{from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:translateY(0);}}
+  .hero h1,.hero-sub,.hero-visual{animation:rise .7s ease-out both;}
+  .hero-sub{animation-delay:.1s;} .hero-visual{animation-delay:.2s;}
+  @media (prefers-reduced-motion: reduce){ .hero h1,.hero-sub,.hero-visual{animation:none;} html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+<div class="mesh"></div>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo">VOL<span>TRA</span></div>
+      <div class="navlinks">
+        <a href="#imkoniyatlar">Imkoniyatlar</a>
+        <a href="#modellar">Modellar</a>
+        <a href="#aloqa">Aloqa</a>
+      </div>
+      <a class="nav-cta" href="#aloqa">Test drayv</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="border-top:none;">
+  <div class="wrap hero-grid">
+    <div class="pill">2026 modellari mavjud</div>
+    <h1>Elektr kuchi, <span class="grad">jimlik</span> bilan boshqariladi.</h1>
+    <div class="hero-sub">
+      <p class="lead">VOLTRA — uzoq masofa, bir zumda tezlanish va har bir buramada his qilinadigan aniqlik uchun qurilgan premium elektromobillar liniyasi.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#modellar">Modellarni ko'rish</a>
+        <a class="btn-ghost" href="#aloqa">Test drayv band qilish</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VOLTRA GT modelining vektor tasviri">
+        <defs>
+          <linearGradient id="body-g" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#5EEAD4"/><stop offset="1" stop-color="#8B7CF6"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 210 C75 165 130 130 210 118 C260 111 285 88 330 78 C380 67 470 66 525 78 C580 90 620 108 670 122 C730 137 790 165 830 208"
+          stroke="url(#body-g)" stroke-width="2.2" fill="none"/>
+        <path d="M210 118 C222 96 262 83 330 78 L344 118 Z" stroke="#F2F3F1" stroke-width="1.3" fill="none" opacity="0.55"/>
+        <path d="M430 76 C475 75 510 82 528 92 L512 118 L438 118 Z" stroke="#F2F3F1" stroke-width="1.3" fill="none" opacity="0.55"/>
+        <line x1="30" y1="216" x2="860" y2="216" stroke="#25282F" stroke-width="1.4"/>
+        <circle cx="230" cy="222" r="42" stroke="#F2F3F1" stroke-width="2" fill="#111318"/>
+        <circle cx="230" cy="222" r="15" stroke="#5EEAD4" stroke-width="1.6"/>
+        <circle cx="650" cy="222" r="42" stroke="#F2F3F1" stroke-width="2" fill="#111318"/>
+        <circle cx="650" cy="222" r="15" stroke="#8B7CF6" stroke-width="1.6"/>
+        <path d="M670 122 L730 137" stroke="#5EEAD4" stroke-width="1.6"/>
+        <path d="M96 190 L120 178" stroke="#8B7CF6" stroke-width="1.6"/>
+      </svg>
+      <div class="spec-strip">
+        <div class="spec"><b>612 km</b><span>masofa</span></div>
+        <div class="spec"><b>2.1s</b><span>0–100 km/soat</span></div>
+        <div class="spec"><b>18 daq</b><span>10→80% zaryad</span></div>
+        <div class="spec"><b>800V</b><span>arxitektura</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="imkoniyatlar">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Muhandislik, his qilinadigan darajada</h2>
+      <p>Har bir tizim bitta maqsad uchun — sizni yo'ldan uzoqlashtirmaslik.</p>
+    </div>
+    <div class="bento">
+      <div class="bento-card wide">
+        <div class="bento-icon"></div>
+        <div><h3>Ikki qavatli batareya hujayrasi</h3><p>Sovutish hujayralar orasida — issiqlikdan yo'qotish deyarli nolga tushiriladi, uzoq masofa barqaror saqlanadi.</p></div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon"></div>
+        <div><h3>800V zaryadlash</h3><p>10→80% atigi 18 daqiqada.</p></div>
+      </div>
+      <div class="bento-card">
+        <div class="bento-icon"></div>
+        <div><h3>Ikkala o'q dvigateli</h3><p>Har g'ildirakka mustaqil moment.</p></div>
+      </div>
+      <div class="bento-card wide">
+        <div class="bento-icon"></div>
+        <div><h3>Qo'l bilan terilgan salon</h3><p>Vegan charm, qayta ishlangan alyuminiy va akustik shisha — sukunat ham dizayn qismi.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="modellar">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Uch model, bitta falsafa</h2>
+      <p>Har biri turli hayot tarziga mos, bir xil aniqlik bilan qurilgan.</p>
+    </div>
+
+    <div class="model-card">
+      <div class="model-top">
+        <div><div class="model-name">VOLTRA Sedan</div><div class="model-tag">Kundalik hashamat</div></div>
+        <div class="model-price">$68,900</div>
+      </div>
+      <svg class="model-svg" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 120 C55 95 100 75 160 68 C200 63 220 50 255 44 C300 37 380 36 425 44 C470 52 500 64 545 74 C590 84 630 98 660 118"
+          stroke="#5EEAD4" stroke-width="1.8" fill="none"/>
+        <circle cx="180" cy="126" r="24" stroke="#F2F3F1" stroke-width="1.6" fill="#111318"/>
+        <circle cx="180" cy="126" r="9" stroke="#5EEAD4" stroke-width="1.2"/>
+        <circle cx="520" cy="126" r="24" stroke="#F2F3F1" stroke-width="1.6" fill="#111318"/>
+        <circle cx="520" cy="126" r="9" stroke="#5EEAD4" stroke-width="1.2"/>
+        <line x1="20" y1="130" x2="700" y2="130" stroke="#25282F" stroke-width="1"/>
+      </svg>
+      <div class="model-specs">
+        <div><b>612 km</b>Masofa</div><div><b>2.9s</b>0–100 km/soat</div><div><b>5</b>O'rindiq</div>
+        <div style="margin-left:auto;"><a class="model-cta" href="#aloqa">Batafsil →</a></div>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-top">
+        <div><div class="model-name">VOLTRA GT</div><div class="model-tag">Sport ijro</div></div>
+        <div class="model-price">$94,500</div>
+      </div>
+      <svg class="model-svg" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 128 C55 90 105 66 170 58 C215 52 235 38 275 32 C320 25 390 24 430 34 C470 44 495 58 540 70 C590 82 635 98 665 126"
+          stroke="#8B7CF6" stroke-width="1.8" fill="none"/>
+        <circle cx="185" cy="132" r="24" stroke="#F2F3F1" stroke-width="1.6" fill="#111318"/>
+        <circle cx="185" cy="132" r="9" stroke="#8B7CF6" stroke-width="1.2"/>
+        <circle cx="530" cy="132" r="24" stroke="#F2F3F1" stroke-width="1.6" fill="#111318"/>
+        <circle cx="530" cy="132" r="9" stroke="#8B7CF6" stroke-width="1.2"/>
+        <line x1="20" y1="136" x2="700" y2="136" stroke="#25282F" stroke-width="1"/>
+      </svg>
+      <div class="model-specs">
+        <div><b>540 km</b>Masofa</div><div><b>2.1s</b>0–100 km/soat</div><div><b>4</b>O'rindiq</div>
+        <div style="margin-left:auto;"><a class="model-cta" href="#aloqa">Batafsil →</a></div>
+      </div>
+    </div>
+
+    <div class="model-card">
+      <div class="model-top">
+        <div><div class="model-name">VOLTRA SUV</div><div class="model-tag">Oila va sayohat</div></div>
+        <div class="model-price">$79,900</div>
+      </div>
+      <svg class="model-svg" viewBox="0 0 800 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 122 C55 85 95 58 150 48 C190 41 215 30 260 26 C310 22 400 22 445 30 C485 37 510 48 550 60 C600 74 640 92 665 120"
+          stroke="#5EEAD4" stroke-width="1.8" fill="none"/>
+        <circle cx="175" cy="126" r="26" stroke="#F2F3F1" stroke-width="1.6" fill="#111318"/>
+        <circle cx="175" cy="126" r="10" stroke="#5EEAD4" stroke-width="1.2"/>
+        <circle cx="535" cy="126" r="26" stroke="#F2F3F1" stroke-width="1.6" fill="#111318"/>
+        <circle cx="535" cy="126" r="10" stroke="#5EEAD4" stroke-width="1.2"/>
+        <line x1="20" y1="130" x2="700" y2="130" stroke="#25282F" stroke-width="1"/>
+      </svg>
+      <div class="model-specs">
+        <div><b>590 km</b>Masofa</div><div><b>3.4s</b>0–100 km/soat</div><div><b>7</b>O'rindiq</div>
+        <div style="margin-left:auto;"><a class="model-cta" href="#aloqa">Batafsil →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="wrap">
+    <blockquote>
+      "VOLTRA'ni tanlashimning sababi tezlik emas — bu mashinaning meni hech narsadan chalg'itmasligi edi."
+      <cite>— A. Karimov, VOLTRA GT egasi</cite>
+    </blockquote>
+  </div>
+</section>
+
+<section id="aloqa">
+  <div class="wrap cta-grid">
+    <div>
+      <h2>Showroomga taklif qilamiz</h2>
+      <p>Toshkent, Yunusobod tumani. Test drayv 30 daqiqa davom etadi va oldindan yozilish talab qilinadi.</p>
+    </div>
+    <form onsubmit="event.preventDefault(); document.getElementById('formSuccess').style.display='block'; this.reset();">
+      <div class="field"><label for="name">Ism</label><input id="name" type="text" required placeholder="Ismingiz"></div>
+      <div class="field"><label for="phone">Telefon raqam</label><input id="phone" type="tel" required placeholder="+998 __ ___ __ __"></div>
+      <div class="field">
+        <label for="model">Qiziqtirgan model</label>
+        <select id="model"><option>VOLTRA Sedan</option><option>VOLTRA GT</option><option>VOLTRA SUV</option></select>
+      </div>
+      <button class="submit-btn" type="submit">Test drayvga yozilish</button>
+      <div class="form-note">Ma'lumotlaringiz faqat aloqa uchun ishlatiladi.</div>
+      <div class="form-success" id="formSuccess">So'rovingiz qabul qilindi — tez orada bog'lanamiz.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div>© 2026 VOLTRA Motors</div>
+    <div>Yunusobod, Toshkent · +998 71 200 00 00</div>
+  </div>
+</footer>
+</body>
+</html>
